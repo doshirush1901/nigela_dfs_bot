@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigela AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #000000;
+            --color-secondary: #666666;
+            --color-accent: #ff3333;
+            --color-background: #ffffff;
+            --color-surface: #f8f8f8;
+            --color-border: #e0e0e0;
+            --spacing-unit: 8px;
+            --border-radius: 2px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            color: var(--color-primary);
+            background: var(--color-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Left Side - Product Demo */
+        .demo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--spacing-unit) * 6);
+            background: var(--color-surface);
+        }
+
+        .device-mockup {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .laptop-frame {
+            width: 100%;
+            height: 380px;
+            background: var(--color-primary);
+            border-radius: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit) * 3);
+            box-shadow: 0 calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 6) rgba(0, 0, 0, 0.1);
+        }
+
+        .laptop-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .email-interface {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-size: 11px;
+        }
+
+        .email-header {
+            background: var(--color-surface);
+            padding: calc(var(--spacing-unit) * 2);
+            border-bottom: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .email-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: calc(var(--spacing-unit) / 2);
+        }
+
+        .email-subtitle {
+            font-size: 10px;
+            color: var(--color-secondary);
+        }
+
+        .email-body {
+            flex: 1;
+            padding: calc(var(--spacing-unit) * 2);
+            overflow-y: auto;
+        }
+
+        .email-greeting {
+            font-style: italic;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .email-text {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            line-height: 1.4;
+        }
+
+        .metrics-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: calc(var(--spacing-unit) * 2);
+            margin: calc(var(--spacing-unit) * 2) 0;
+        }
+
+        .metrics-title {
+            font-weight: 600;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: calc(var(--spacing-unit));
+            color: var(--color-primary);
+        }
+
+        .metric-item {
+            font-size: 9px;
+            margin-bottom: calc(var(--spacing-unit) / 2);
+            color: var(--color-secondary);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: calc(var(--spacing-unit));
+            margin: calc(var(--spacing-unit) * 2) 0;
+            font-size: 9px;
+        }
+
+        .meal-type {
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        .meal-details {
+            color: var(--color-secondary);
+        }
+
+        /* Menu Table */
+        .menu-table {
+            margin: calc(var(--spacing-unit) * 2) 0;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .menu-header {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+
+        .menu-header-cell {
+            padding: calc(var(--spacing-unit)) calc(var(--spacing-unit) * 1.5);
+            font-size: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .menu-row:last-child {
+            border-bottom: none;
+        }
+
+        .menu-cell {
+            padding: calc(var(--spacing-unit)) calc(var(--spacing-unit) * 1.5);
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-cell.meal-icon {
+            font-weight: 500;
+        }
+
+        .menu-cell.carbon {
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        /* Phone Overlay */
+        .phone-overlay {
+            position: absolute;
+            bottom: -20px;
+            right: -40px;
+            width: 120px;
+            height: 240px;
+            background: var(--color-primary);
+            border-radius: calc(var(--spacing-unit) * 2);
+            padding: calc(var(--spacing-unit));
+            transform: rotate(8deg);
+            box-shadow: 0 calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 4) rgba(0, 0, 0, 0.15);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-background);
+            border-radius: calc(var(--spacing-unit));
+            overflow: hidden;
+            font-size: 6px;
+        }
+
+        .phone-header {
+            background: var(--color-surface);
+            padding: calc(var(--spacing-unit));
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .phone-content {
+            padding: calc(var(--spacing-unit));
+            line-height: 1.3;
+        }
+
+        /* Right Side - Information */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: calc(var(--spacing-unit) * 6);
+            background: var(--color-background);
+        }
+
+        .brand-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            color: var(--color-primary);
+        }
+
+        .brand-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--color-secondary);
+            margin-bottom: calc(var(--spacing-unit) * 4);
+            line-height: 1.4;
+        }
+
+        .key-metrics {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: calc(var(--spacing-unit) * 2) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--color-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        .signup-form {
+            margin-bottom: calc(var(--spacing-unit) * 4);
+        }
+
+        .form-group {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: calc(var(--spacing-unit) * 2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            font-family: inherit;
+            background: var(--color-background);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .form-button {
+            width: 100%;
+            padding: calc(var(--spacing-unit) * 2);
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .form-button:hover {
+            background: var(--color-secondary);
+        }
+
+        .form-button:disabled {
+            background: var(--color-border);
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 11px;
+            color: var(--color-secondary);
+            margin-top: calc(var(--spacing-unit));
+        }
+
+        .contact-info {
+            font-size: 11px;
+            color: var(--color-secondary);
+            line-height: 1.4;
+        }
+
+        .contact-info a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .status-message {
+            margin-top: calc(var(--spacing-unit));
+            padding: calc(var(--spacing-unit));
+            border-radius: var(--border-radius);
+            font-size: 12px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #f0f8f0;
+            color: #2d5a2d;
+            border: 1px solid #c0e0c0;
+        }
+
+        .status-message.error {
+            background: #f8f0f0;
+            color: #5a2d2d;
+            border: 1px solid #e0c0c0;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            .demo-section {
+                order: 2;
+                padding: calc(var(--spacing-unit) * 4);
+            }
+
+            .info-section {
+                order: 1;
+                padding: calc(var(--spacing-unit) * 4);
+            }
+
+            .brand-title {
+                font-size: 36px;
+            }
+
+            .laptop-frame {
+                height: 300px;
+            }
+
+            .phone-overlay {
+                display: none;
+            }
+        }
+
+        /* Dieter Rams inspired animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Side - Product Demo -->
+        <div class="demo-section">
+            <div class="device-mockup">
+                <div class="laptop-frame">
+                    <div class="laptop-screen">
+                        <div class="email-interface">
+                            <div class="email-header">
+                                <div class="email-title">NIGELA AI</div>
+                                <div class="email-subtitle">Carbon-Conscious Satvik Meal Planning</div>
+                                <div class="email-subtitle">AI-Curated • 2.3M Recipe Database</div>
+                            </div>
+                            
+                            <div class="email-body">
+                                <div class="email-greeting">Darlings,</div>
+                                
+                                <div class="email-text">
+                                    Today's AI-curated menu optimized for 47% lower carbon footprint while building immunity.
+                                </div>
+
+                                <div class="menu-table">
+                                    <div class="menu-header">
+                                        <div class="menu-header-cell">MEAL</div>
+                                        <div class="menu-header-cell">RECIPE & TIMING</div>
+                                        <div class="menu-header-cell">IMPACT</div>
+                                    </div>
+                                    <div class="menu-row">
+                                        <div class="menu-cell meal-icon">🍳 BREAKFAST</div>
+                                        <div class="menu-cell">Quinoa Chia Bowl (15min)</div>
+                                        <div class="menu-cell carbon">0.3kg CO₂</div>
+                                    </div>
+                                    <div class="menu-row">
+                                        <div class="menu-cell meal-icon">🥜 SNACK</div>
+                                        <div class="menu-cell">Sprouted Mung (10min)</div>
+                                        <div class="menu-cell carbon">0.1kg CO₂</div>
+                                    </div>
+                                    <div class="menu-row">
+                                        <div class="menu-cell meal-icon">🍛 LUNCH</div>
+                                        <div class="menu-cell">Satvik Buddha Bowl (20min)</div>
+                                        <div class="menu-cell carbon">0.8kg CO₂</div>
+                                    </div>
+                                    <div class="menu-row">
+                                        <div class="menu-cell meal-icon">☕ SNACK</div>
+                                        <div class="menu-cell">Herbal Tea & Dates (5min)</div>
+                                        <div class="menu-cell carbon">0.1kg CO₂</div>
+                                    </div>
+                                    <div class="menu-row">
+                                        <div class="menu-cell meal-icon">🍽️ DINNER</div>
+                                        <div class="menu-cell">Plant-Based Khichdi (30min)</div>
+                                        <div class="menu-cell carbon">0.4kg CO₂</div>
+                                    </div>
+                                </div>
+
+                                <div class="metrics-box">
+                                    <div class="metrics-title">Today's Impact</div>
+                                    <div class="metric-item">🌱 Total Carbon: 1.7kg CO₂ (vs 3.2kg standard)</div>
+                                    <div class="metric-item">🛡️ Immunity Boost: +180% Vitamin C, +95% Zinc</div>
+                                    <div class="metric-item">⚖️ Calories: 1,850 (Parents) • 1,650 (Kids)</div>
+                                </div>
+
+                                <div class="email-text" style="font-style: italic; font-size: 10px;">
+                                    Screenshot this menu for your cook.<br>
+                                    Nigela AI 🌱
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smartwatch Overlay -->
+                <div style="position: absolute; top: -30px; left: -50px; width: 80px; height: 80px; background: var(--color-primary); border-radius: 50%; padding: 8px; transform: rotate(-12deg); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);">
+                    <div style="width: 100%; height: 100%; background: var(--color-primary); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px;">
+                        <div style="color: white; font-size: 6px; font-weight: 600; margin-bottom: 3px;">9:00 PM</div>
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 4px; padding: 4px; text-align: center;">
+                            <div style="color: white; font-size: 4px; font-weight: 600;">NIGELA AI</div>
+                            <div style="color: white; font-size: 3px; margin-top: 1px;">Tomorrow: Soak</div>
+                            <div style="color: white; font-size: 3px;">Chickpeas (200g)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Overlay -->
+                <div class="phone-overlay">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <div style="font-weight: 600; font-size: 7px;">YOUTUBE LINKS</div>
+                            <div style="font-size: 5px; color: var(--color-secondary);">AI-Curated Videos</div>
+                        </div>
+                        <div class="phone-content">
+                            <div style="margin-bottom: 6px; font-size: 6px; font-weight: 500;">Today's Cooking Videos:</div>
+                            
+                            <div style="background: var(--color-surface); padding: 4px; margin: 3px 0; border-radius: 2px;">
+                                <div style="font-size: 5px; font-weight: 500; color: var(--color-primary);">🍳 Quinoa Chia Bowl</div>
+                                <div style="font-size: 4px; color: var(--color-secondary);">Pick Up Limes • 8:42</div>
+                            </div>
+                            
+                            <div style="background: var(--color-surface); padding: 4px; margin: 3px 0; border-radius: 2px;">
+                                <div style="font-size: 5px; font-weight: 500; color: var(--color-primary);">🍛 Buddha Bowl</div>
+                                <div style="font-size: 4px; color: var(--color-secondary);">Rainbow Plant Life • 12:15</div>
+                            </div>
+                            
+                            <div style="background: var(--color-surface); padding: 4px; margin: 3px 0; border-radius: 2px;">
+                                <div style="font-size: 5px; font-weight: 500; color: var(--color-primary);">🍽️ Plant Khichdi</div>
+                                <div style="font-size: 4px; color: var(--color-secondary);">Peaceful Cuisine • 15:30</div>
+                            </div>
+                            
+                            <div style="background: var(--color-surface); padding: 4px; margin: 3px 0; border-radius: 2px;">
+                                <div style="font-size: 5px; font-weight: 500; color: var(--color-primary);">🥜 Sprouted Mung</div>
+                                <div style="font-size: 4px; color: var(--color-secondary);">Manjula's Kitchen • 6:22</div>
+                            </div>
+
+                            <div style="font-size: 4px; color: var(--color-secondary); margin-top: 6px; text-align: center;">
+                                AI-matched from 50K+ videos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Information -->
+        <div class="info-section">
+            <div class="brand-title fade-in">Nigela AI</div>
+            <div class="brand-subtitle fade-in">
+                Carbon-conscious satvik meal planning powered by the world's largest recipe database and advanced AI optimization.
+            </div>
+
+            <div class="key-metrics fade-in">
+                <div class="metric-row">
+                    <div class="metric-label">Database Size</div>
+                    <div class="metric-value">2.3M Recipes</div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Carbon Reduction</div>
+                    <div class="metric-value">-47%</div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Video Library</div>
+                    <div class="metric-value">50K+ Curated</div>
+                </div>
+                <div class="metric-row">
+                    <div class="metric-label">Family Health</div>
+                    <div class="metric-value">Personalized</div>
+                </div>
+            </div>
+
+            <form class="signup-form fade-in" id="signupForm">
+                <div class="form-group">
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        placeholder="Enter your email address"
+                        required
+                        id="emailInput"
+                    >
+                </div>
+                <button type="submit" class="form-button" id="signupButton">
+                    Join Beta Program
+                </button>
+                <div class="form-note">
+                    Daily AI-curated menus at 9 PM • Unsubscribe anytime
+                </div>
+                <div class="status-message" id="statusMessage"></div>
+            </form>
+
+            <div class="contact-info fade-in">
+                <strong>Contact:</strong> <a href="mailto:rushabh@machinecraft.org">rushabh@machinecraft.org</a><br>
+                <strong>Location:</strong> Mumbai, India<br>
+                <strong>Program:</strong> Limited Beta Access
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form handling
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('emailInput');
+            const submitButton = document.getElementById('signupButton');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            const email = emailInput.value.trim();
+            
+            // Validate email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showStatus('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Show loading
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+            
+            try {
+                // Store locally (replace with your API)
+                const signups = JSON.parse(localStorage.getItem('nigela_beta_signups') || '[]');
+                if (!signups.some(signup => signup.email === email)) {
+                    signups.push({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        source: 'dieter_rams_landing'
+                    });
+                    localStorage.setItem('nigela_beta_signups', JSON.stringify(signups));
+                }
+                
+                // Success
+                showStatus('Welcome to Nigela AI Beta! Check your email.', 'success');
+                emailInput.value = '';
+                
+            } catch (error) {
+                showStatus('Something went wrong. Please try again.', 'error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Join Beta Program';
+            }
+        });
+        
+        function showStatus(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusMessage.style.display = 'none';
+                }, 5000);
+            }
+        }
+    </script>
+</body>
+</html>
