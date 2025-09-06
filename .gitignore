@@ -1,0 +1,52 @@
+# Sensitive files
+gmail_token.json
+*.json
+client_secret_*.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Logs
+logs/
+*.log
+
+# Data files (keep structure, ignore content)
+data/*.xlsx
+!data/.keep
+
+# Library files
+library/*.pdf
+library/*.txt
+!library/.keep
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output files
+*.zip
+test_*.py
+enhanced_daily_email.py
+enhanced_daily_email_nigella.py
+integrate_cookbooks.py
+simple_recipe_integration.py
+update_*.sh
+*.html
+!BLACK_WHITE_EMAIL_TEMPLATE.html
+!SAMPLE_*.html
+

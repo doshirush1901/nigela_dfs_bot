@@ -1,0 +1,4 @@
+
+# Nigela Daily Menu Email - Every day at 9 PM
+0 21 * * * cd /Users/rushabhdoshi/Desktop/Nigela && /usr/bin/python3 -m src.cli email --for tomorrow >> /Users/rushabhdoshi/Desktop/Nigela/logs/daily_email.log 2>&1
+
